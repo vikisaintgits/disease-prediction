@@ -1,0 +1,48 @@
+{% extends "doctorhead.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>function ab()
+{
+    document.getElementById("wnn").innerHTML="Please wait . it may take time to predict your result"
+}</script>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a><i class="fa fa-angle-right"></i>Doctor <i class="fa fa-angle-right"></i>Appointments <i class="fa fa-angle-right"></i>Pnemonia Cancer</li>
+</ol>
+
+
+<h1>Upload chest X-Ray to predict Pnemonia Result</h1>
+<form method="post" enctype="multipart/form-data" action="{% url 'predict' %}">
+    {% csrf_token %}
+        <table>
+            <tr>
+                <Td>upload File</Td>
+                <td><input type="file" name="t1" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" onclick="ab()" name="b1" value="upload" class="btn btn-lg btn-success" /></td>
+            </tr>
+            <tr><td colspan="2">{% if prediction != "" %} 
+             Prediction result is :{% if prediction == "normal" %} <span style="color:green" >  Negative </span>{% else %}
+            <span style="color:red" >  positive </span>
+                {% endif %} {% endif %}
+            </td></tr>
+        </table>
+        <div id="wnn" style="color:orange"> </div>
+    </form>
+    
+      </div>
+     <!---    </div>-->
+        
+            </div>
+            <style>
+                table th, table td {
+                padding: 9px 7px;
+                text-align: left;
+                }
+                </style>
+{% endblock %}                

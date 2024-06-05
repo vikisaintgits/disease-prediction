@@ -1,0 +1,56 @@
+{% extends "adminhead.html" %}
+{% load static %}
+
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a><i class="fa fa-angle-right"></i>Admin <i class="fa fa-angle-right"></i> List Users</li>
+</ol>
+
+
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>DateofBirth</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Gender</th>
+                            
+                            
+                          
+                         <th >Action</th>
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in data %}
+                                
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><img src="/media/{{datas.User_photo}}" width="50px" height="50px"/></td>
+                                <td>{{datas.User_name}}</td>
+                                <td>{{datas.User_dob}}</td>
+                                <td>{{datas.User_phone}}</td>
+                                <td>{{datas.User_address}}</td>
+                                <td>{{datas.User_gender}}</td>
+                                
+                               <td>
+                                <a href="{% url 'adminuserdelete' dataid=datas.User_id %}" class="btn btn-danger" >Remove</a></td>
+                            </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+      </div>
+     <!---    </div>-->
+        
+            </div>
+            <style>
+                table th, table td {
+                padding: 9px 7px;
+                text-align: left;
+                }
+                </style>
+{% endblock %}                

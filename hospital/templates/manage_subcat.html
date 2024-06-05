@@ -1,0 +1,58 @@
+{% extends "adminhead.html" %}
+{% load static %}
+
+{% block content %}
+
+        <h4 class="tittle-w3-agileits mb-4">Manage Sub Category</h4>
+       
+            
+        <form action="{% url 'Manage_Subcat1' %}" method="post" class="form-control">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="form-group">
+                    <label for="selector1" class="col-sm-2">Category</label>
+                    <div class="col-sm-8"><select name="t1" id="selector1" class="form-control1" required>
+                        <option value="">--Select--</option>
+                        {% for datas in data %}
+                        
+                        <option value="{{datas.Cat_id}}">{{datas.Category}} </option>
+                        
+                        {% endfor %}
+                    </select></div>
+                </div>
+
+
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Sub Category</label>
+                <div class="col-sm-10">
+                    <input type="text" name="t2" class="form-control" id="" placeholder="Sub Category" required="">
+                </div>
+            </div>
+           <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary fa-pull-right">Save</button>
+                </div>
+            </div>
+        </form>
+
+            <div class="form-group row">
+            <table class="table table-responsive table-stripped" >
+                <tr>
+                <th>Sl No.</th>
+                <th>Category Name</th>
+                <th>Sub Category</th>
+                <th>Action</th>
+            </tr>
+            {% for datas in data1 %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{datas.Cat_id.Category}}</td>
+                <td>{{datas.Subcat}}</td>
+                <td><a href="{% url 'delete_subcat'%}?id={{datas.Subcat_id}}" class="btn btn-danger">REMOVE</a></td>
+            </tr>
+            {% endfor %}
+            </table>
+
+
+        </div>
+ 
+ {% endblock %}

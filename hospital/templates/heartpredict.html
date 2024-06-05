@@ -1,0 +1,100 @@
+{% extends "doctorhead.html" %}
+{% load static %}
+
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a><i class="fa fa-angle-right"></i>Doctor <i class="fa fa-angle-right"></i>Appointments <i class="fa fa-angle-right"></i>Predict Cancer</li>
+</ol>
+
+<form method="post" onsubmit="return val(this)" action="{% url 'heartpredict'%}?id={{id}}">
+{% csrf_token %}
+    <table  class="table table-striped table-responsive">
+<tr><th>Report generated date</th><td><input type="date" name="z1" value="{{data.report_date}}" class="form-control" required></td></tr>
+        <tr>
+            <th>Age of the Patient </th><td><input type="number" value="{{data.age}}" name="t1" class="form-control" required /></td>
+        </tr>
+        <tr>
+            <th>Gender </th><td><input type="radio"  name="t2" value="M" {% if data.Gender == "M" %} checked="checked" {% endif%} />Male 
+                <input type="radio"  name="t2" value="F" {% if data.Gender == "F" %} checked="checked" {% endif%}  />Female  </td>
+        </tr>
+        <tr>
+            <th>Chest Pain Type [TA: Typical Angina, ATA: Atypical Angina, NAP: Non-Anginal Pain, ASY: Asymptomatic]</th>
+            <td><Select name="t3" class="form-control" required>
+                <option value="">-select-</option>
+                <option {% if data.Chest_pain == "ASY" %} selected="selected" {% endif%}  >ASY</option>
+                <option {% if data.Chest_pain == "NAP" %} selected="selected" {% endif%}  >NAP</option>
+                <option {% if data.Chest_pain == "ATA" %} selected="selected" {% endif%}  >ATA</option>
+                <option {% if data.Chest_pain == "TA" %} selected="selected" {% endif%}  >TA</option>
+            </Select>
+            </td>
+        </tr>
+        <tr>
+            <th>resting blood pressure [mm Hg] </th>
+            <td><input type="number" value="{{data.pressure}}" name="t4" class="form-control" required /></td>
+        </tr>
+        <tr>
+            <th>serum cholesterol [mm/dl]</th>
+            <td><input type="number" value="{{data.cholesterol}}" name="t5" class="form-control" required /></td>
+        </tr>
+        <tr>
+            <th>fasting blood sugar [Yes: if FastingBS > 120 mg/dl, No: otherwise] </th>
+            
+            <td><input type="radio"  name="t6" value="1" {% if data.fasting == "1" %} checked="checked" {% endif%} />Yes 
+                <input type="radio"  name="t6" value="0" {% if data.fasting == "0" %} checked="checked" {% endif%} />No  </td>
+        
+        </tr>
+        <tr>
+            <th>resting electrocardiogram results<br />
+                [Normal: Normal, ST: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV), LVH: showing probable or definite left ventricular hypertrophy by Estes' criteria]
+            </th><td><input type="radio"  name="t7" value="Normal" {% if data.electrocardiogram == "Normal" %} checked="checked" {% endif%} />Normal 
+                <input type="radio"  name="t7" value="ST" {% if data.electrocardiogram == "ST" %} checked="checked" {% endif%} />ST 
+                <input type="radio"  name="t7" value="LVH" {% if data.electrocardiogram == "LVH" %} checked="checked" {% endif%} />LVH  </td>
+        </tr>
+        <tr>
+            <th>maximum heart rate achieved [Numeric value between 60 and 202] </th>
+            <td><input type="number" max="202" min="60" value="{{data.heart_rate}}" name="t8" class="form-control" required /></td>
+        </tr>
+        <tr>
+            <th>ExerciseAngina {exercise-induced angina [Y: Yes, N: No]}</th>
+            <td><input type="radio"  name="t9" value="Y" {% if data.ExerciseAngina == "Y" %} checked="checked" {% endif%} />Yes 
+                <input type="radio"  name="t9" value="N" {% if data.ExerciseAngina == "N" %} checked="checked" {% endif%} />No  </td>
+        </tr>
+        <tr>
+            <th>Oldpeak [Numeric value measured in depression]</th>
+            
+            <td><input type="text" value="" name="t10" value="{{data.Oldpeak}}" class="form-control" required /></td>
+        </tr>
+        <tr>
+            <th>the slope of the peak exercise ST segment [Up: upsloping, Flat: flat, Down: downsloping]</th><td>
+                <Select name="t11" class="form-control" required>
+                    <option value="">-select-</option>
+                    <option {% if data.slope == "Up" %} selected="selected" {% endif%} >Up</option>
+                    <option {% if data.slope == "Flat" %} selected="selected" {% endif%} >Flat</option>
+                    <option {% if data.slope == "Down" %} selected="selected" {% endif%} >Down</option>
+                </Select>
+               </td>
+        </tr>
+      
+         <tr><th colspan="2">
+             
+            {% if outc == 0 %}
+            <input type="submit" name="b1" value="Generate" class="btn btn-lg btn-success" 
+            style="margin-right:10%;float:right;">
+            {% else %}
+           Pridiction result is  : {{data.result}}
+        {% endif %}
+        </th></tr>
+    </table>
+</form>
+    
+      </div>
+     <!---    </div>-->
+        
+            </div>
+            <style>
+                table th, table td {
+                padding: 9px 7px;
+                text-align: left;
+                }
+                </style>
+{% endblock %}                

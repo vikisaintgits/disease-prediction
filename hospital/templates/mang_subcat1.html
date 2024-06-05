@@ -1,0 +1,64 @@
+{% extends "doctorhead.html" %}
+{% load static %}
+
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a><i class="fa fa-angle-right"></i>Doctor <i class="fa fa-angle-right"></i>Appointments</li>
+</ol>
+
+
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Patient Details</th>
+                            <th>Booking Details </th>
+                            <th>Slot From</th>
+                            <th>Slot To</th>
+                            <th>Action</th>
+                            
+                            
+                            
+                          
+                     
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in data %}
+                                
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                              
+                                <td>Name-{{datas.User_id.User_name}}<br>
+                                    Address-{{datas.User_id.User_address}}<br>
+                                    Phone-{{datas.User_id.User_phone}}<br>
+                                    Gender-{{datas.User_id.User_gender}}
+
+                                </td>
+              
+                                <td>{{datas.Consult_id.Consult_day}}</td>
+                                <td>{{datas.Consult_id.Consult_time_from}}</td>
+                                <td>{{datas.Consult_id.Consult_time_to}}</td>
+
+                                <td>
+                                    <a href="" class="btn btn-success btn-sm m-1">Case Sheet</a>
+                                    <a href="{% url 'cancerpredict' %}?id={{datas.App_id}}" class="btn btn-info btn-sm m-1">Predict Cancer</a>
+                                    <a href="" class="btn btn-info btn-sm m-1">Predict Pnemonia</a>
+                                    <a href="{% url 'heartpredict' %}?id={{datas.App_id}}" class="btn btn-info btn-sm m-1">Predict Heart Disease</a>
+                                </td>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+      </div>
+     <!---    </div>-->
+        
+            </div>
+            <style>
+                table th, table td {
+                padding: 9px 7px;
+                text-align: left;
+                }
+                </style>
+{% endblock %}                

@@ -1,0 +1,77 @@
+{% extends "userhead.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a><i class="fa fa-angle-right"></i>Doctors<i class="fa fa-angle-right"></i> Consulting Time</li>
+</ol>
+
+
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Doctor</th>
+                            <th>Booking Details</th>
+                            <th>Slot From</th>
+                            <th>Slot To</th>
+                          
+                         
+                         <th>Status</th>
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in appdic %}
+                                
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                               
+                                <td>Name:{{datas.Doc_id.Doc_name}}<br>
+                                    SubCategory:{{datas.Doc_id.Doc_special}}<br>
+                                    Location:{{datas.Doc_id.Doc_loc}}<br>
+                                    Contact:{{datas.Doc_id.Doc_contact}}
+                                   
+                                </td>
+
+            
+          
+
+           
+            
+                                 <td>{{datas.Consult_id.Consult_day}}</td>
+                                <td>{{datas.Consult_id.Consult_time_from}}</td>
+                                <td>{{datas.Consult_id.Consult_time_to}}</td>
+
+                           
+                               
+            
+                               
+                               <td>
+                                {{datas.App_stat}} 
+                               </td>
+                               
+                            </tr>
+                           
+                              
+                         
+            {% endfor %}
+          
+                            </tbody>
+                        
+                        </table>
+      </div>
+     <!---    </div>-->
+        
+            </div>
+            <style>
+                table th, table td {
+                padding: 9px 7px;
+                text-align: left;
+                }
+                </style>
+
+{% endblock %}

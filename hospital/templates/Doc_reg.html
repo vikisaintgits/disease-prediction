@@ -1,0 +1,108 @@
+{% extends "indexhead.html" %}
+{% load static %}
+
+{% block content %}
+
+<script>
+     function getsub(x)
+     {
+          var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("t12").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "getsub?id="+x, true);
+  xhttp.send();
+
+     }
+</script>
+
+<form method="post" action="{% url 'Doc_reg' %}" enctype="multipart/form-data" >
+     {% csrf_token %}
+    <!-- SECTION TITLE -->
+    <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
+         <h2>Register Your Account</h2>
+    </div>
+    <div class="wow fadeInUp" data-wow-delay="0.8s">
+         <div class="col-md-12 col-sm-12">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" name="t1" placeholder="Full Name" required>
+         </div>
+         <div class="col-md-12 col-sm-12">
+          <label for="name">User Name</label>
+          <input type="text" class="form-control" id="name" name="t2" placeholder="User Name"  required>
+     </div>
+     <div class="col-md-12 col-sm-12">
+          <label for="name">Password</label>
+          <input type="password" class="form-control" id="password" name="t3" placeholder="Password"  required>
+     </div>
+         <div class="form-group">
+               <label for="checkbox" class="col-sm-2 ">Qualification</label>
+               <input type="textarea" class="form-control" id="qualification" name="t4" placeholder="Qualification"  required>
+          <div class="col-md-12 col-sm-12">
+               <label for="name">Specialization</label>
+               <input type="text" class="form-control" id="specialization" name="t5" placeholder="Specialization"  required>
+          </div>
+          <div class="col-md-12 col-sm-12">
+               <label for="name">Hospital Name</label>
+               <input type="text" class="form-control" id="hospitalname" name="t6" placeholder="Hospital Name"  required>
+          </div>
+          <div class="col-md-12 col-sm-12">
+               <label for="name">Category</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <select name="t13" id="t13"  required onchange="getsub(this.value)">
+                 <option value="">Choose Category</option>
+                 {% for x in dataw %}
+                 <option value="{{x.Cat_id}}">{{x.Category}}</option>
+                 {% endfor %}
+               </select><br><br>
+          </div>
+
+         
+          
+              <div class="col-md-12 col-sm-12">
+                   <label for="name">SubCategory</label>&nbsp;
+                   <select name="t12" id="t12"  required>
+                     <option value="">Choose SubCategory</option>
+                   
+                   </select><br><br>
+              </div>
+
+          <div class="col-md-12 col-sm-12">
+               <label for="name">Contact Number</label>
+               <input type="number" class="form-control" id="ContactNumber" name="t7" placeholder="Contact Number"  required>
+          </div>
+          <div class="col-md-12 col-sm-12">
+               <label for="name">Address</label>
+               <input type="textarea" class="form-control" id="Address" name="t8" placeholder="Address"  required>
+          </div>
+          <div class="col-md-12 col-sm-12">
+               <label for="name">Location</label>
+               <input type="textarea" class="form-control" id="Location" name="t9" placeholder="Location"  required>
+          </div>
+          <div class="form-group">
+               <label class="col-md-12 ">Email Address</label>
+               <div class="col-md-12">
+                   <div class="input-group">							
+                       <span class="input-group-addon">
+                           <i class="fa fa-envelope-o"></i>
+                       </span>
+                       <input type="text" class="form-control1" name="t10" required placeholder="Email Address" id="ema" onblur="auemailss();" required>
+                   </div>
+               </div>
+          </div>
+           <div class="form-group">
+               <label for="mediuminput" class="col-sm-12">Photo</label>
+               <div class="col-sm-12">
+                   <input type="file" class="form-control1" name="t11" required id="mediuminput" placeholder="Photo">
+               </div>
+           </div>
+         <div class="col-md-12 col-sm-12">
+             <button type="submit" class="form-control" id="cf-submit" name="submit">Register</button>
+         </div>
+    </div>
+</form>
+
+
+{% endblock %}

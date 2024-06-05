@@ -1,0 +1,91 @@
+{% extends "adminhead.html" %}
+{% load static %}
+{% block content %}
+
+
+<!--grid-->
+
+<form class="form-horizontal" enctype="multipart/form-data" method="post" action="">
+    {% csrf_token %}
+                   {% for x in data %}
+    <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t1" id="name" value="{{x.Doc_name}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Qualification</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t2" id="qual" value="{{x.Doc_qualif}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Speciality</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t3" id="speciality" value="{{x.Doc_special}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Hospital</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t4" id="speciality" value="{{x.Doc_hospital_name}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Contact</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t5" id="speciality" value="{{x.Doc_contact}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t6" id="speciality" value="{{x.Doc_address}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Location</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t7" id="speciality" value="{{x.Doc_loc}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Status</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t8" id="speciality" value="{{x.Doc_stat}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Mail</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="t9" id="speciality" value="{{x.Doc_mail}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Photo</label>
+        <div class="col-sm-10">
+            <input type="file"  id="image" name="imge" >
+            <br>
+            <img src={{data.Doc_photo.url}} style="width:50px;height:50px;">
+        </div>
+      </div>
+
+    {% endfor %}
+     
+    <div class="col-sm-8 col-sm-offset-2" align="center">
+    <button class="btn-success btn" type="submit" name="submit">Submit</button>
+    
+</div>
+  </form>
+  
+{% endblock %}

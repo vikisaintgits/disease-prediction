@@ -1,0 +1,36 @@
+{% extends "adminhead.html" %}
+{% block content %}
+
+<form action="{% url 'privacychangedoc' %}" method="post">
+    {% csrf_token %}
+
+    {% for datas in data %}
+    <input type="hidden" name="t0" class="form-control" value="{{datas.log_id}}">
+
+    <table class="table table-responsive-lg table-striped table-hover ">
+        <tr>
+            <th>
+                current password
+            </th><td><input type="password" name="t1" class="form-control" placeholder="current password" /></td>
+            
+        </tr>
+   
+      <tr>
+        <th>
+            New password
+        </th><td><input type="password" name="t2" class="form-control" placeholder="New password" /></td>
+        
+    </tr>
+      <tr>
+        <th>
+            Confirm password
+        </th><td><input type="password" name="t3" class="form-control"   placeholder="Confirm password" /></td>
+        
+    </tr>
+    <tr>
+        <th colspan="2" ><input type="submit" name="t4" value="change" class="btn btn-success btn-lg" style="float:right"/></th>
+    </tr>
+</table>
+</form>
+{% endfor %}
+{% endblock %}

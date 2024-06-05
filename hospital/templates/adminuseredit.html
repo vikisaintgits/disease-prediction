@@ -1,0 +1,68 @@
+{% extends "adminhead.html" %}
+{% block content %}
+<div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">USER UPDATE</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+      <div class="card-body">
+        {% for datas in data %}
+      <form method='POST' action="{% url 'adminusreditsubmit' %}" enctype="multipart/form-data">
+          {% csrf_token %} 
+          <input type="hidden"  id="t6" name="t6" value="{{datas.User_id}}" >
+
+        <div>
+            <label style="color:red"> Name</label>
+            <input type="text" class="form-control" id="t1" name="t1" value="{{datas.User_name}}" >
+          </div>
+
+
+          <div class="form-group">
+            <label style="color:red">DateofBirth</label>
+            <input type="text" class="form-control" id="t2" name="t2" value="{{datas.User_dob}}">
+          </div>
+
+
+           <div class="form-group">
+            <label style="color:red">Address </label>
+            <input type="text" class="form-control" id="t3" value="{{datas.User_address}}" name="t3">
+          </div>
+
+
+          <div class="form-group">
+            <label style="color:red">Phone</label>
+            <input type="text" class="form-control" id="t4" name="t4" value="{{datas.User_phone}}">
+          </div>
+
+
+        <div class="form-group">
+            <label style="color:red">Gender</label>
+            <input type="text" class="form-control" id="t5" name="t5" value="{{datas.User_gender}}">
+          </div>
+
+
+          <div class="form-group row">
+            <label style="color:red" class="col-sm-2 col-form-label">Photo</label>
+            <div class="col-sm-10">
+                <input type="file"  id="image" name="imge" >
+                <br>
+                <img src={{datas.User_photo.url}} style="width:50px;height:50px;">
+            </div>
+          </div>
+       
+       
+         
+            <!-- /.input group -->
+          </div>
+      </div>
+      {% endfor %}
+      <!-- /.card-body -->
+
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </form>
+  </div>
+  </div>
+{% endblock %}

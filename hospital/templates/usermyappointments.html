@@ -1,0 +1,80 @@
+{% extends "userhead.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a><i class="fa fa-angle-right"></i>Doctors<i class="fa fa-angle-right"></i> Consulting Time</li>
+</ol>
+
+
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+       <tr >
+                            <th>Sl.no</th>
+                            <th>Doctor</th>
+                            <th>Booking Details</th>
+                            <th>Slot From</th>
+                            <th>Slot To</th>
+                            <th>confirmed Date</th>
+                           <th>Action</th>
+                          
+                        
+                       
+                          </tr>
+                          </thead>
+        
+        <tbody>
+           
+            {% for datas in dic %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+               
+                <td>Name:{{datas.Doc_id.Doc_name}}<br>
+                    SubCategory:{{datas.Doc_id.Doc_special}}<br>
+                    Location:{{datas.Doc_id.Doc_loc}}<br>
+                    Contact:{{datas.Doc_id.Doc_contact}}
+                   
+                </td>
+
+                
+                <td>{{datas.Consult_id.Consult_day}}</td>
+                <td>{{datas.Consult_id.Consult_time_from}}</td>
+                <td>{{datas.Consult_id.Consult_time_to}}</td>
+                <td>{% if datas.conf_date != "" %}{{datas.conf_date}} {% else %} 
+                    Date not confirmed
+                    {% endif %}</td>
+                <td>  {% if datas.App_stat != "Waiting" %}  {% if not  datas.App_files %}
+                    <form method='POST' action="{% url 'userfileupload' dataid=datas.App_id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="form-group">
+                            <label for="mediuminput" class="col-sm-12">Photo</label>
+                            <div class="col-sm-12">
+                                <input type="file" class="form-control1" name="img" required id="mediuminput" placeholder="Photo" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="form-control" id="cf-submit" name="submit">Submit</button>
+                    </form>
+                    {% else %}  File Submitted
+                    {% endif %}
+                    {% else %} 
+                    Waiting for approval
+                    {% endif %}
+                </td>
+                {% endfor %}
+          
+            </tbody>
+        
+        </table>
+</div>
+<!---    </div>-->
+
+</div>
+<style>
+table th, table td {
+padding: 9px 7px;
+text-align: left;
+}
+</style>
+{% endblock %}

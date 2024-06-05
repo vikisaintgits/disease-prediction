@@ -1,0 +1,157 @@
+{% extends "userhead.html" %}
+{% load static %}
+
+{% block content %}
+<script>
+  function getsub(x)
+  {
+       var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+ if (this.readyState == 4 && this.status == 200) {
+   document.getElementById("t2").innerHTML =
+   this.responseText;
+ }
+};
+xhttp.open("GET", "getsub?id="+x, true);
+xhttp.send();
+
+  }
+</script>
+        <h4 class="tittle-w3-agileits mb-4">Search Doctors</h4>
+        <form method="post" action="{% url 'userbooking' %}" enctype="multipart/form-data" >
+            {% csrf_token %}
+           <!-- SECTION TITLE -->
+          
+          
+           
+                <div class="col-md-12 col-sm-12">
+                     <label for="name">Category</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <select name="t1" id="t1" onchange="getsub(this.value)" required>
+                       <option value="">Choose Category</option>
+                       {% for x in data %}
+                       <option value="{{x.Cat_id}}">{{x.Category}}</option>
+                       {% endfor %}
+                     </select>
+                </div><br><br>
+               
+                
+                    <div class="col-md-12 col-sm-12" required>
+                         <label for="name">SubCategory</label>&nbsp;
+                         <select name="t2" id="t2">
+                           <option value="">Choose SubCategory</option>
+                         
+                         </select>
+                    </div><br><br>
+
+                    <div class="wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="col-md-12 col-sm-12">
+                             <label for="name">Location</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             <select name="t3" id="t3">
+                               <option>Choose Location</option>
+                               {% for z in data2 %}
+                               <option value="{{z}}">{{z}}</option>
+                               {% endfor %}
+                             </select>
+                        </div>
+                        <div style="float:center" class="card-footer">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                          </div>
+       </form>
+       <div style="float:right">
+       <form method="post" action="{% url 'goback' %}">
+         {% csrf_token %}
+        
+          <button type="submit" class="btn btn-danger">Goback</button>
+       
+       </form>
+      </div><br><br>
+
+       
+       <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a><i class="fa fa-angle-right"></i>Doctors<i class="fa fa-angle-right"></i> Consulting Time</li>
+    </ol>
+    
+    
+        <table id="example2" class="table table-bordered table-hover">
+          <thead>
+           <tr >
+                                <th>Sl.no</th>
+                                <th>Doctor Details</th>
+                                <th>Day</th>
+                                <th>Time From</th>
+                                <th>Time To</th>
+                                <th>No.ofBookings</th>
+                                
+                             <th >Action</th>
+                              </tr>
+                              </thead>
+            
+            <tbody>
+               
+                {% for datas in dic %}
+                                    
+                                    <tr>
+                                      {% if datas.consult_count != 0 %}
+                                    <td rowspan="{{datas.consult_count}}">{{ forloop.counter }}</td>
+                                    <td rowspan="{{datas.consult_count}}">name :{{datas.Doc_name}}
+                                      <br/>
+                                          email:
+                                          {{datas.Doc_mail}}
+                                 <br/>
+                                          mob{{datas.Doc_contact}}
+                                          <br/>
+                                          Qualification:
+                                          {{datas.Doc_qualif}}
+                                 <br/>
+                                          specialization:{{datas.Doc_special}}
+                                          <br/>
+                                          hospital:{{datas.Doc_hospital_name}}
+                                        </td>
+                                    {% for datar in datas.consult_t %}
+                                    <td>{{datar.Consult_day}}</td>
+                                    <td>{{datar.Consult_time_from}}</td>
+                                    <td>{{datar.Consult_time_to}}</td>
+                 
+                                    <td>{{datar.Consult_nob}}</td>
+                                    
+                                    <td><a href="{% url 'myappointments' dataid=request.session.id datacon=datar.Consult_id %}"class="btn btn-success" >BookNow</a>
+                                   </td>
+                                   </tr><tr>
+                                   {% endfor %}
+{% else %}
+<td>{{ forloop.counter }}</td>
+<td>name :{{datas.Doc_name}}
+  <br/>
+      email:
+      {{datas.Doc_mail}}
+<br/>
+      mob{{datas.Doc_contact}}
+      <br/>
+      Qualification:
+      {{datas.Doc_qualif}}
+<br/>
+      specialization:{{datas.Doc_special}}
+      <br/>
+      hospital:{{datas.Doc_hospital_name}}</td>
+<td colspan="5" style="color:red">no data aailabe yet</td>
+</tr>
+{% endif %}
+                                </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                         
+          </div>
+         <!---    </div>-->
+            
+              
+                <style>
+                    table th, table td {
+                    padding: 9px 7px;
+                    text-align: left;
+                    }
+                    </style>
+    
+    
+ {% endblock %}
